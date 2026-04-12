@@ -12,6 +12,7 @@ import {
   useFormState,
   useWatch,
   type Path,
+  type FieldErrors,
 } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -48,17 +49,23 @@ import {
   type SurveyFormValues,
   surveySchema,
 } from "@/lib/survey-schema";
-import { surveyInputUnderlineClass, surveyTextareaUnderlineClass } from "@/lib/survey-field-skin";
+import {
+  surveyInputUnderlineClass,
+  surveyTextareaUnderlineClass,
+} from "@/lib/survey-field-skin";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 
-type Props = {
+export const SECTION_KEYS: SectionKey[] = ["A", "B", "C", "D", "E", "F", "G"];
+
+interface Props {
   locale: Locale;
   onSubmitted: (data: SurveyFormValues) => void | Promise<void>;
+  onBack?: () => void;
   className?: string;
-};
+}
 
-export function SurveyForm({ locale, onSubmitted, className }: Props) {
+export function SurveyForm({ locale, onSubmitted, onBack, className }: Props) {
   const form = useForm<SurveyFormValues>({
     resolver: zodResolver(surveySchema),
     defaultValues: defaultSurveyValues(),
@@ -73,7 +80,7 @@ export function SurveyForm({ locale, onSubmitted, className }: Props) {
       await Promise.resolve(onSubmitted(data));
     } catch (e) {
       setSubmissionError(
-        e instanceof Error ? e.message : copy.saveFailed[locale],
+        e instanceof Error ? e.message : copy.saveFailed[locale as Locale],
       );
     }
   };
@@ -81,39 +88,46 @@ export function SurveyForm({ locale, onSubmitted, className }: Props) {
   return (
     <FormProvider {...form}>
       <form
-        className={cn("space-y-12", className)}
+        className={cn("space-y-16", className)}
         onSubmit={form.handleSubmit(handleValidSubmit)}
         noValidate
       >
-        <SurveyFields locale={locale} />
-        <div
-          className="flex flex-col items-stretch gap-3 sm:items-end"
-          aria-live="polite"
-        >
-          {submissionError ? (
-            <p className="max-w-md text-right text-sm text-destructive sm:self-end">
-              {submissionError}
-            </p>
-          ) : null}
+        <SurveyFields locale={locale as Locale} />
+
+        <div className="flex flex-col-reverse gap-4 pt-12 sm:flex-row sm:justify-end sm:gap-6">
+          {onBack && (
+            <Button
+              type="button"
+              variant="outline"
+              size="lg"
+              onClick={onBack}
+              className="h-14 min-w-[160px] rounded-sm border-gray-200 text-lg font-medium text-gray-600 hover:bg-gray-50"
+            >
+              {copy.back[locale as Locale]}
+            </Button>
+          )}
           <Button
             type="submit"
             size="lg"
             disabled={isSubmitting}
-            className="min-w-[200px] self-end"
+            className="h-14 min-w-[240px] rounded-sm bg-[#0056b3] text-lg font-bold text-white hover:bg-blue-700"
             aria-busy={isSubmitting}
           >
             {isSubmitting ? (
               <>
-                <Loader2
-                  className="mr-2 size-4 shrink-0 animate-spin"
-                  aria-hidden
-                />
-                {copy.sending[locale]}
+                <Loader2 className="mr-2 size-5 animate-spin" />
+                {copy.sending[locale as Locale]}
               </>
             ) : (
-              copy.submit[locale]
+              copy.submit[locale as Locale]
             )}
           </Button>
+
+          {submissionError ? (
+            <p className="text-right text-sm text-destructive">
+              {submissionError}
+            </p>
+          ) : null}
         </div>
       </form>
     </FormProvider>
@@ -122,10 +136,14 @@ export function SurveyForm({ locale, onSubmitted, className }: Props) {
 
 function SurveyFields({ locale }: { locale: Locale }) {
   const { control } = useFormContext<SurveyFormValues>();
-  const t = (key: keyof typeof copy) => copy[key][locale];
+  const t = (key: keyof typeof copy) => {
+    const translation = copy[key];
+    if (!translation) return `[${key}]`;
+    return (translation as Record<Locale, string>)[locale];
+  };
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-16">
       <SurveySection sectionKey="A" locale={locale}>
         <QuestionItem id="q1" title={t("q1")} emphasized>
           <SingleChoice name="q1" options={q1Options} locale={locale} />
@@ -154,32 +172,28 @@ function SurveyFields({ locale }: { locale: Locale }) {
       </SurveySection>
 
       <SurveySection sectionKey="C" locale={locale}>
-        <p className="text-sm leading-relaxed text-foreground">
-          {copy.matrixIntro[locale]}
-        </p>
-
-        <div className="space-y-10">
-          <div className="space-y-4">
-            <h3 className="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold leading-snug text-primary-foreground shadow-sm sm:rounded-md sm:px-5 sm:text-base">
-              {copy.subsectionEnv[locale]}
+        <div className="space-y-12">
+          <div className="space-y-6">
+            <h3 className="text-lg font-bold text-[#1a365d] sm:text-xl">
+              {t("subsectionEnv")}
             </h3>
             <QuestionItem id="q8" title={t("q8")}>
               <MatrixField fieldName="q8" rows={q8Rows} locale={locale} />
             </QuestionItem>
           </div>
 
-          <div className="space-y-4 pt-10">
-            <h3 className="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold leading-snug text-primary-foreground shadow-sm sm:rounded-md sm:px-5 sm:text-base">
-              {copy.subsectionSocial[locale]}
+          <div className="space-y-6">
+            <h3 className="text-lg font-bold text-[#1a365d] sm:text-xl">
+              {t("subsectionSocial")}
             </h3>
             <QuestionItem id="q9" title={t("q9")}>
               <MatrixField fieldName="q9" rows={q9Rows} locale={locale} />
             </QuestionItem>
           </div>
 
-          <div className="space-y-4 pt-10">
-            <h3 className="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold leading-snug text-primary-foreground shadow-sm sm:rounded-md sm:px-5 sm:text-base">
-              {copy.subsectionGov[locale]}
+          <div className="space-y-6">
+            <h3 className="text-lg font-bold text-[#1a365d] sm:text-xl">
+              {t("subsectionGov")}
             </h3>
             <QuestionItem id="q10" title={t("q10")}>
               <MatrixField fieldName="q10" rows={q10Rows} locale={locale} />
@@ -210,13 +224,12 @@ function SurveyFields({ locale }: { locale: Locale }) {
           <Controller
             name="q17"
             control={control}
-            render={({ field, fieldState }) => (
+            render={({ field }) => (
               <Textarea
                 {...field}
-                rows={5}
-                aria-invalid={fieldState.error ? true : undefined}
-                className={surveyTextareaUnderlineClass(!!fieldState.error)}
-                placeholder="…"
+                rows={6}
+                className="rounded-sm border-gray-200 focus:border-[#0056b3] focus:ring-[#0056b3]"
+                placeholder="..."
               />
             )}
           />
@@ -283,7 +296,7 @@ function SectionEFields({
       <MultiChoice name="q14" options={q14Options} locale={locale} />
       {q14.includes("q14_other") ? (
         <div className="mt-4 space-y-2">
-          <Label htmlFor="q14_other">{copy.otherSpecify[locale]}</Label>
+          <Label htmlFor="q14_other">{copy.otherSpecify[locale as Locale]}</Label>
           <Controller
             name="q14_other"
             control={control}
@@ -297,7 +310,7 @@ function SectionEFields({
                 />
                 {fieldState.error ? (
                   <p className="text-sm text-destructive">
-                    {copy.otherSpecify[locale]}
+                    {copy.otherSpecify[locale as Locale]}
                   </p>
                 ) : null}
               </>
@@ -324,17 +337,15 @@ function SurveySection({
   return (
     <section
       id={`section-${sectionKey.toLowerCase()}`}
-      className="scroll-mt-24 space-y-8 rounded-none border-0 bg-[#ffffff] py-8 sm:py-10"
+      className="scroll-mt-28 space-y-10 rounded-sm border-0 bg-white"
     >
-      <header className="rounded-lg bg-primary px-4 py-3 text-primary-foreground shadow-sm sm:rounded-md sm:px-5 sm:py-3.5">
-        <p className="text-sm font-semibold tracking-tight sm:text-base">
-          {meta.short[locale]}
-        </p>
-        <h2 className="mt-1 text-xs font-medium leading-snug opacity-95 sm:text-sm">
-          {meta.full[locale]}
+      <header className="space-y-2">
+        <h2 className="text-xl font-extrabold uppercase tracking-tight text-[#1a365d] sm:text-2xl">
+          {meta.short[locale as Locale]} — {meta.full[locale as Locale]}
         </h2>
+        <div className="h-1 w-24 rounded-sm bg-[#0056b3]" />
       </header>
-      <div className="space-y-8">{children}</div>
+      <div className="space-y-12">{children}</div>
     </section>
   );
 }
@@ -351,18 +362,16 @@ function QuestionItem({
   emphasized?: boolean;
 }) {
   return (
-    <div id={id} className="space-y-3 scroll-mt-24">
+    <div id={id} className="space-y-5 scroll-mt-28">
       <h3
         className={cn(
-          "font-semibold leading-snug text-foreground",
-          emphasized
-            ? "text-base sm:text-lg"
-            : "text-sm sm:text-base",
+          "font-bold leading-tight text-[#1a365d]",
+          emphasized ? "text-xl sm:text-2xl" : "text-lg sm:text-xl",
         )}
       >
         {title}
       </h3>
-      {children}
+      <div className="pl-0">{children}</div>
     </div>
   );
 }
@@ -395,10 +404,7 @@ function SingleChoice({
             {options.map((opt) => {
               const inputId = `${String(name)}-${opt.id}`;
               return (
-                <div
-                  key={opt.id}
-                  className="flex items-start gap-2.5 py-1"
-                >
+                <div key={opt.id} className="flex items-start gap-2.5 py-1">
                   <RadioGroupItem
                     value={opt.id}
                     id={inputId}
@@ -408,14 +414,14 @@ function SingleChoice({
                     htmlFor={inputId}
                     className="cursor-pointer text-sm font-normal leading-relaxed text-foreground"
                   >
-                    {opt.labels[locale]}
+                    {opt.labels[locale as Locale]}
                   </Label>
                 </div>
               );
             })}
           </RadioGroup>
           {err ? (
-            <p className="text-sm text-destructive">{copy.required[locale]}</p>
+            <p className="text-sm text-destructive">{copy.required[locale as Locale]}</p>
           ) : null}
         </div>
       )}
@@ -448,10 +454,7 @@ function MultiChoice({
                 const inputId = `${name}-${opt.id}`;
                 const checked = selected.has(opt.id);
                 return (
-                  <div
-                    key={opt.id}
-                    className="flex items-start gap-2.5 py-1"
-                  >
+                  <div key={opt.id} className="flex items-start gap-2.5 py-1">
                     <Checkbox
                       id={inputId}
                       checked={checked}
@@ -475,7 +478,9 @@ function MultiChoice({
               })}
             </div>
             {err ? (
-              <p className="text-sm text-destructive">{copy.required[locale]}</p>
+              <p className="text-sm text-destructive">
+                {copy.required[locale]}
+              </p>
             ) : null}
           </div>
         );
@@ -493,85 +498,78 @@ function MatrixField({
   rows: { id: string; maxPoints: number; labels: Record<Locale, string> }[];
   locale: Locale;
 }) {
-  const { control } = useFormContext<SurveyFormValues>();
-  const { errors } = useFormState({
-    control,
-    name: fieldName,
-    exact: true,
-  });
-  const rowErrors = errors[fieldName] as
-    | Record<string, { message?: string } | undefined>
-    | undefined;
-  const labels = likertScaleLabels[locale];
+  const { control, formState } = useFormContext<SurveyFormValues>();
+  const options = [1, 2, 3, 4, 5];
+  const headings = likertScaleLabels[locale];
+  const rowErrors = formState.errors[fieldName];
 
   return (
-    <div className="overflow-x-auto">
-      {rows.map((row, index) => (
-        <div
-          key={row.id}
-          className={cn(
-            "min-w-[min(100%,520px)] border-b border-neutral-200 pb-6",
-            index > 0 && "mt-1 pt-6",
-          )}
-        >
-          <p className="mb-2 text-sm font-semibold leading-relaxed text-foreground">
-            {row.labels[locale]}
-          </p>
-          <MatrixRowRadios
-            fieldName={fieldName}
-            rowId={row.id}
-            labels={labels}
-          />
-          {rowErrors?.[row.id] ? (
-            <p className="mt-1 text-sm text-destructive">
-              {copy.required[locale]}
-            </p>
-          ) : null}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function MatrixRowRadios({
-  fieldName,
-  rowId,
-  labels,
-}: {
-  fieldName: "q8" | "q9" | "q10";
-  rowId: string;
-  labels: string[];
-}) {
-  const { control } = useFormContext<SurveyFormValues>();
-
-  return (
-    <Controller
-      name={`${fieldName}.${rowId}` as Path<SurveyFormValues>}
-      control={control}
-      render={({ field }) => (
-        <RadioGroup
-          value={String(field.value ?? "")}
-          onValueChange={field.onChange}
-          className="flex flex-wrap items-center gap-x-5 gap-y-2 sm:gap-x-6"
-        >
-          {([1, 2, 3, 4, 5] as const).map((n) => {
-            const v = String(n);
-            const inputId = `${fieldName}-${rowId}-${v}`;
-            return (
-              <div key={v} className="flex items-center gap-2">
-                <RadioGroupItem value={v} id={inputId} className="shrink-0" />
-                <Label
-                  htmlFor={inputId}
-                  className="cursor-pointer text-xs font-normal leading-tight text-foreground sm:text-sm"
+    <div className="w-full">
+      <div className="overflow-x-auto rounded-sm border border-gray-100 shadow-sm">
+        <table className="w-full min-w-[700px] border-collapse bg-white text-sm">
+          <thead>
+            <tr className="bg-[#f8fafc] text-[11px] font-bold uppercase tracking-wider text-[#4a5568]">
+              <th className="border-b border-gray-100 px-6 py-4 text-left font-bold text-[#1a365d]">
+                Practice / Statement
+              </th>
+              {headings.map((h, i) => (
+                <th
+                  key={i}
+                  className="border-b border-gray-100 px-2 py-4 text-center"
                 >
-                  <span className="sr-only">{v}. </span>
-                  {labels[n - 1]}
-                </Label>
-              </div>
-            );
-          })}
-        </RadioGroup>
-      )}
-    />
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, rowIndex) => (
+              <tr
+                key={row.id}
+                className={cn(
+                  "transition-colors",
+                  rowIndex % 2 === 1 ? "bg-[#f8fafc]" : "bg-white",
+                )}
+              >
+                <td className="w-1/3 px-6 py-5 text-left font-medium text-[#4a5568]">
+                  <div className="flex flex-col gap-1">
+                    <span>{row.labels[locale as Locale]}</span>
+                    {rowErrors?.[row.id] ? (
+                      <span className="text-xs font-normal text-destructive">
+                        {copy.required[locale as Locale]}
+                      </span>
+                    ) : null}
+                  </div>
+                </td>
+                {options.map((val) => (
+                  <td key={val} className="px-2 py-5 text-center">
+                    <Controller
+                      name={`${fieldName}.${row.id}`}
+                      control={control}
+                      render={({ field }) => (
+                        <div className="flex justify-center">
+                          <RadioGroup
+                            value={String(field.value ?? "")}
+                            onValueChange={field.onChange}
+                          >
+                            <div className="flex items-center justify-center">
+                              <RadioGroupItem
+                                value={String(val)}
+                                id={`${fieldName}-${row.id}-${val}`}
+                                className="h-5 w-5 border-neutral-300 text-[#0056b3] shadow-none data-[state=checked]:border-[#0056b3] data-[state=checked]:bg-[#0056b3]"
+                              />
+                            </div>
+                          </RadioGroup>
+                        </div>
+                      )}
+                    />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }

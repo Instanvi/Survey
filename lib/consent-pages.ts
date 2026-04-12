@@ -11,113 +11,96 @@ export type ConsentInfoPage = {
   body: Record<Locale, string>;
 };
 
-/** Informational pages (before contact + agreement). */
-export const consentInfoPages: ConsentInfoPage[] = [
+export const consentInfoPages: (ConsentInfoPage & { icon?: string })[] = [
   {
     heading: {
-      en: "Study information",
-      fr: "Informations sur l’étude",
+      en: "Purpose of the Study",
+      fr: "Objet de l’étude",
     },
     body: {
-      en: "The Impact of ESG Adoption on Sustainable Financial Performance in Your Organization.\n\nPrincipal investigator: Kenneth KOME Echalle\nInstitution: Robert Kennedy College — University of Cumbria\n\n1. Purpose of the study\nThis study aims to investigate how organisations in the mobile telecommunications sector can leverage ESG adoption for long-term financial performance and sustainable practices.",
-      fr: "L’impact de l’adoption de l’ESG sur la performance financière durable au sein de votre organisation.\n\nChercheur principal : Kenneth KOME Echalle\nÉtablissement : Robert Kennedy College — University of Cumbria\n\n1. Objet de l’étude\nCette étude vise à examiner comment les organisations du secteur des télécommunications mobiles peuvent tirer parti de l’adoption de l’ESG pour la performance financière à long terme et des pratiques durables.",
+      en: "This study aims to investigate on how Cameroonian Mobile Telecoms can leverage structured ESG adoption to secure long-term financial performance in a growing market.",
+      fr: "Cette étude vise à examiner comment les télécommunications mobiles camerounaises peuvent tirer parti de l’adoption structurée de l’ESG pour garantir une performance financière à long terme sur un marché en pleine croissance.",
     },
   },
   {
     heading: {
-      en: "2. Procedures",
-      fr: "2. Déroulement",
+      en: "Procedures",
+      fr: "Déroulement",
     },
     body: {
-      en: "You will complete a questionnaire. It may ask about your organisation, your role, your experience with ESG-related topics, and your views on ESG practices. Some items use multiple-choice responses; you may also provide recommendations at the end.\n\nYou are not obliged to disclose sensitive personal data in the survey questions themselves. After this information sheet, the following screen will ask for your full name and a single contact field (email or phone number) so we can link your response to the study if needed.",
-      fr: "Vous compléterez un questionnaire. Il peut porter sur votre organisation, votre rôle, votre expérience liée à l’ESG et votre opinion sur les pratiques ESG. Certaines questions sont à choix multiples ; vous pourrez aussi formuler des recommandations en fin de questionnaire.\n\nVous n’êtes pas obligé·e de divulguer des données personnelles sensibles dans les questions du questionnaire. Après cette feuille d’information, l’écran suivant demandera votre nom complet et un seul champ de contact (courriel ou numéro de téléphone) afin d’associer votre réponse à l’étude si nécessaire.",
+      en: "If you agree to participate, you are required to complete a questionnaire that follows. This questionnaire will require you to provide the name of your organization, your level in the organization's hierarchy, your role, and the years of experience you have in ESG related topics. Then you will be required to provide your opinion on how ESG is being practiced by your organization by answering YES/NO question, and providing a few recommendations at the end. You are not required to disclose your personal information in at any time in the survey.",
+      fr: "Si vous acceptez de participer, vous devrez remplir le questionnaire qui suit. Ce questionnaire vous demandera de fournir le nom de votre organisation, votre niveau dans la hiérarchie de l’organisation, votre rôle et les années d’expérience que vous avez sur les sujets liés à l’ESG. Vous devrez ensuite donner votre avis sur la manière dont l’ESG est pratiqué par votre organisation en répondant à des questions par OUI/NON et en formulant quelques recommandations à la fin. Vous n’êtes en aucun cas tenu·e de divulguer vos informations personnelles au cours de l’enquête.",
     },
   },
   {
     heading: {
-      en: "3. Risks and discomforts",
-      fr: "3. Risques et gênes",
+      en: "Risks and Discomforts",
+      fr: "Risques et gênes",
     },
     body: {
-      en: "Possible risks include, for example, concern about how your employer might react if critical feedback about the organisation were identifiable. We will handle your data in line with the confidentiality section and only use contact details for study-related communication.",
-      fr: "Des risques peuvent inclure, par exemple, des inquiétudes quant à la réaction de votre employeur si des commentaires critiques sur l’organisation étaient identifiables. Nous traiterons vos données conformément à la section confidentialité et n’utiliserons les coordonnées que pour les besoins de l’étude.",
+      en: "You might face retaliation risks from your employer if you provide negative feedback on ESG practices and this comes to their notice.",
+      fr: "Vous pourriez être confronté·e à des risques de représailles de la part de votre employeur si vous fournissez des commentaires négatifs sur les pratiques ESG et que cela parvient à sa connaissance.",
     },
   },
   {
     heading: {
-      en: "4. Benefits",
-      fr: "4. Bénéfices",
+      en: "Benefits",
+      fr: "Bénéfices",
     },
     body: {
-      en: "Potential benefits include contributing to knowledge on ESG and financial performance in your sector, and reflecting on practices that may support social and financial outcomes for staff and organisations.",
-      fr: "Les bénéfices potentiels incluent la contribution aux connaissances sur l’ESG et la performance financière dans votre secteur, ainsi qu’une réflexion sur des pratiques pouvant soutenir des retombées sociales et financières pour le personnel et les organisations.",
+      en: "You may benefit from this study if your organization implements actions that bring positive social and financial benefits for employees although this cannot be guaranteed. You should also be proud to contribute to the creation of new knowledge on ESG adoption in Cameroon.",
+      fr: "Vous pourriez bénéficier de cette étude si votre organisation met en œuvre des actions qui apportent des retombées sociales et financières positives pour les employé·es, bien que cela ne puisse être garanti. Vous devriez également être fier·ère de contribuer à la création de nouvelles connaissances sur l’adoption de l’ESG au Cameroun.",
     },
   },
   {
     heading: {
-      en: "5. Confidentiality & 6. Voluntary participation",
-      fr: "5. Confidentialité et 6. Participation volontaire",
+      en: "Confidentiality",
+      fr: "Confidentialité",
     },
     body: {
-      en: "5. Confidentiality: Information you provide will be handled securely and used only for this research within the limits described here.\n\n6. Voluntary participation: Your participation is voluntary. You may stop at any time without penalty. By continuing to the questionnaire after providing your details, you confirm that you have read this information.",
-      fr: "5. Confidentialité : les informations que vous fournirez seront traitées de manière sécurisée et utilisées uniquement pour cette recherche, dans les limites décrites ici.\n\n6. Participation volontaire : votre participation est volontaire. Vous pouvez cesser à tout moment sans pénalité. En poursuivant vers le questionnaire après avoir fourni vos coordonnées, vous confirmez avoir lu ces informations.",
+      en: "Your information will be protected and stored securely.",
+      fr: "Vos informations seront protégées et stockées en toute sécurité.",
+    },
+  },
+  {
+    heading: {
+      en: "Voluntary Participation",
+      fr: "Participation volontaire",
+    },
+    body: {
+      en: "Participation is voluntary, and you may withdraw at any time without penalty. You are free to fully disclose, partially disclose or not disclose at all any information you deem to sensitive to be made available to outsiders, without any penalties.",
+      fr: "La participation est volontaire et vous pouvez vous retirer à tout moment sans pénalité. Vous êtes libre de divulguer entièrement, partiellement ou de ne pas divulguer du tout toute information que vous jugez trop sensible pour être mise à la disposition de tiers, sans aucune pénalité.",
     },
   },
 ];
 
+
 export const consentUi = {
-  documentTitle: {
-    en: "Information & consent",
-    fr: "Information et consentement",
+  mainTitle: {
+    en: "The Impact of ESG adoption on Sustainable Financial Performance in your Organization",
+    fr: "L’impact de l’adoption de l’ESG sur la performance financière durable au sein de votre organisation",
   },
-  /** After reading the full information sheet. */
-  continueToDetails: {
-    en: "Continue",
-    fr: "Continuer",
+
+  researcher: {
+    en: "Kenneth KOME Echalle",
+    fr: "Kenneth KOME Echalle",
   },
-  backToInformation: {
-    en: "Back to information sheet",
-    fr: "Retour à la feuille d’information",
+  institution: {
+    en: "Robert Kennedy College - University of Cumbria",
+    fr: "Robert Kennedy College - University of Cumbria",
   },
   startSurvey: {
-    en: "Start questionnaire",
-    fr: "Commencer le questionnaire",
-  },
-  participantHeading: {
-    en: "Your information",
-    fr: "Vos informations",
-  },
-  participantIntro: {
-    en: "Enter your full name and an email address or a phone number in the field below (one is enough). Then confirm your consent.",
-    fr: "Saisissez votre nom complet et une adresse courriel ou un numéro de téléphone dans le champ ci-dessous (l’un ou l’autre suffit). Confirmez ensuite votre consentement.",
-  },
-  fullName: { en: "Full name", fr: "Nom complet" },
-  emailOrPhone: {
-    en: "Email or phone number",
-    fr: "Courriel ou numéro de téléphone",
-  },
-  emailOrPhoneHint: {
-    en: "Use an email if it contains @; otherwise we treat your entry as a phone number.",
-    fr: "S’il y a un @, nous traitons la saisie comme un courriel ; sinon, comme un numéro de téléphone.",
-  },
-  emailOrPhoneRequired: {
-    en: "Please enter an email or a phone number.",
-    fr: "Veuillez saisir un courriel ou un numéro de téléphone.",
-  },
-  invalidEmail: {
-    en: "Please enter a valid email address.",
-    fr: "Veuillez saisir une adresse courriel valide.",
-  },
-  nameRequired: {
-    en: "Please enter your name.",
-    fr: "Veuillez saisir votre nom.",
+    en: "Proceed to Survey",
+    fr: "Passer à l’enquête",
   },
   consentCheckbox: {
-    en: "I have read the information above and agree to participate in this study.",
-    fr: "J’ai lu les informations ci-dessus et j’accepte de participer à cette étude.",
+    en: "I have read the ABOVE information and AGREE to participate in this study under the stated conditions.",
+    fr: "J’ai lu les informations CI-DESSUS et j’ACCEPTE de participer à cette étude selon les conditions énoncées.",
   },
+
   agreeRequired: {
     en: "Please tick the box to confirm your consent.",
     fr: "Veuillez cocher la case pour confirmer votre consentement.",
   },
+
 } as const;

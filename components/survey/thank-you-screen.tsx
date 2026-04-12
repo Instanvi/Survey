@@ -22,8 +22,8 @@ export function ThankYouScreen({ locale, onLocaleChange }: Props) {
         <h1 className="text-xl font-semibold text-foreground sm:text-2xl">
           {copy.thanksTitle[locale]}
         </h1>
-        <LocaleSwitcher value={locale} onChange={onLocaleChange} />
       </div>
+
       <p className="max-w-md text-base leading-relaxed text-foreground">
         {copy.thanksBody[locale]}
       </p>

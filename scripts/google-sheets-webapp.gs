@@ -2,70 +2,54 @@
  * Google Apps Script — deploy as Web app (Execute as: Me, Who has access: Anyone).
  * Set GOOGLE_SHEETS_WEB_APP_URL in .env.local to the deployment URL.
  *
- * Expects JSON from this app including:
- *   sheetHeaders — array of column titles (row 1, written once on empty sheet)
- *   sheetRow     — one data row matching sheetHeaders length
- *
- * Legacy payloads without sheetRow still append 8 columns (see LEGACY_APPEND).
- * Prefer redeploying this script and using a fresh sheet when columns change.
+ * This version uses dynamic headers based on the columns sent from the frontend.
+ * Prefer creating a fresh sheet if questionnaire columns change.
  */
-function ensureSheetHeaderRow(sheet, headers) {
-  if (!headers || headers.length === 0) {
-    return;
+function ensureHeaders(sheet, headers) {
+  if (!headers || headers.length === 0) return;
+  
+  // If sheet is fresh, set headers
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(headers);
+    var range = sheet.getRange(1, 1, 1, headers.length);
+    range.setFontWeight("bold");
+    range.setBackground("#0056b3"); // Match our professional blue
+    range.setFontColor("#FFFFFF");
+    sheet.setFrozenRows(1);
+    Logger.log("Initialized new sheet with headers");
+  } else {
+    // Optional: detect if headers mismatch? 
+    // For now, we assume the user maintains sheet consistency.
   }
-  if (sheet.getLastRow() > 0) {
-    return;
-  }
-  sheet.appendRow(headers);
-  var headerRange = sheet.getRange(1, 1, 1, headers.length);
-  headerRange.setFontWeight("bold");
-  sheet.setFrozenRows(1);
 }
 
 function doPost(e) {
+  var lock = LockService.getScriptLock();
   try {
-    var data = JSON.parse(e.postData.contents);
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+    // Wait for up to 30 seconds for a lock
+    lock.waitLock(30000);
+    
+    var contents = e.postData.contents;
+    var data = JSON.parse(contents);
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheets()[0];
 
     if (data.sheetRow && data.sheetHeaders) {
-      ensureSheetHeaderRow(sheet, data.sheetHeaders);
+      ensureHeaders(sheet, data.sheetHeaders);
       sheet.appendRow(data.sheetRow);
+      
       return ContentService.createTextOutput(JSON.stringify({ ok: true }))
         .setMimeType(ContentService.MimeType.JSON);
     }
 
-    // Legacy: 8 columns (no per-answer columns)
-    var LEGACY_HEADERS = [
-      "Submitted at (ISO)",
-      "Locale",
-      "Full name",
-      "Email",
-      "Phone",
-      "Total score (0–100)",
-      "Score breakdown (JSON)",
-      "Answers (JSON)",
-    ];
-    ensureSheetHeaderRow(sheet, LEGACY_HEADERS);
+    throw new Error("Missing sheetRow or sheetHeaders in submission");
 
-    var p = data.participant || {};
-    var answersJson = JSON.stringify(data.answers || {});
-    var breakdownJson = JSON.stringify(data.breakdown || {});
-    sheet.appendRow([
-      data.submittedAt || new Date().toISOString(),
-      data.locale || "",
-      p.fullName || "",
-      p.email || "",
-      p.phone || "",
-      data.totalScore ?? "",
-      breakdownJson,
-      answersJson,
-    ]);
-
-    return ContentService.createTextOutput(JSON.stringify({ ok: true }))
-      .setMimeType(ContentService.MimeType.JSON);
   } catch (err) {
+    Logger.log("Error in doPost: " + err.toString());
     return ContentService.createTextOutput(
-      JSON.stringify({ ok: false, error: String(err) }),
+      JSON.stringify({ ok: false, error: err.toString() }),
     ).setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
   }
 }

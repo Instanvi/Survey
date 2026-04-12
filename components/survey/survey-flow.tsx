@@ -3,28 +3,34 @@
 import { useCallback, useState } from "react";
 
 import type { Locale } from "@/lib/locale";
-import type { ParticipantContact } from "@/lib/consent-pages";
 import { computeScore, type ScoreBreakdown } from "@/lib/score";
 import type { SurveyFormValues } from "@/lib/survey-schema";
+import { copy } from "@/lib/questionnaire";
 import { ConsentScreen } from "./consent-screen";
-import { SurveyHeader } from "./survey-header";
 import { SurveyForm } from "./survey-form";
 import { ThankYouScreen } from "./thank-you-screen";
+import { cn } from "@/lib/utils";
+import { SurveyHeader } from "./survey-header";
+import { LocaleSwitcher } from "./locale-switcher";
+
+
 
 type Step = "consent" | "survey" | "thanks";
 
 export function SurveyFlow() {
   const [locale, setLocale] = useState<Locale>("en");
   const [step, setStep] = useState<Step>("consent");
-  const [participant, setParticipant] = useState<ParticipantContact | null>(
-    null,
+
+  const t = useCallback(
+    (rec: Record<string, string>) => rec[locale] || "",
+    [locale],
   );
+
 
   const submitToSheet = useCallback(
     async (
       data: SurveyFormValues,
       score: ScoreBreakdown,
-      contact: ParticipantContact | null,
     ) => {
       const res = await fetch("/api/submit", {
         method: "POST",
@@ -35,7 +41,7 @@ export function SurveyFlow() {
           totalScore: score.total,
           breakdown: score,
           answers: data,
-          participant: contact ?? {
+          participant: {
             fullName: "",
             email: "",
             phone: "",
@@ -67,36 +73,60 @@ export function SurveyFlow() {
   const onSurveySubmit = useCallback(
     async (data: SurveyFormValues) => {
       const score = computeScore(data);
-      await submitToSheet(data, score, participant);
+      await submitToSheet(data, score);
       setStep("thanks");
     },
-    [submitToSheet, participant],
+    [submitToSheet],
   );
 
   return (
-    <div className="mx-auto w-full max-w-3xl space-y-8 bg-[#ffffff] px-4 py-10 sm:px-6 sm:py-14">
-      {step === "survey" ? (
-        <SurveyHeader locale={locale} onLocaleChange={setLocale} />
-      ) : null}
+    <div className="min-h-screen bg-white">
+      {/* Sticky Universal Header */}
+      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-8">
+          <div className="flex flex-col">
+            <h1 className="text-xl font-extrabold tracking-tight text-[#1a365d]">
+              {t(copy.stickyHeaderTitle)}
+            </h1>
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#0056b3]">
+              TELECOM | CAMEROON
+            </p>
+          </div>
+          <LocaleSwitcher value={locale} onChange={setLocale} />
+        </div>
+      </header>
 
-      {step === "consent" ? (
-        <ConsentScreen
-          locale={locale}
-          onLocaleChange={setLocale}
-          onComplete={(p) => {
-            setParticipant(p);
-            setStep("survey");
-          }}
-        />
-      ) : null}
+      <main className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+        {step === "consent" ? (
+          <div className="py-8 sm:py-12">
+            <ConsentScreen
+              locale={locale}
+              onLocaleChange={setLocale}
+              onComplete={() => setStep("survey")}
+            />
+          </div>
+        ) : null}
 
-      {step === "survey" ? (
-        <SurveyForm locale={locale} onSubmitted={onSurveySubmit} />
-      ) : null}
+        {step === "survey" ? (
+          <div className="space-y-8 py-8 sm:py-12">
+            <SurveyHeader locale={locale} onLocaleChange={setLocale} />
+            <SurveyForm
+              locale={locale}
+              onSubmitted={onSurveySubmit}
+              onBack={() => setStep("consent")}
+            />
+          </div>
+        ) : null}
 
-      {step === "thanks" ? (
-        <ThankYouScreen locale={locale} onLocaleChange={setLocale} />
-      ) : null}
+        {step === "thanks" ? (
+          <div className="px-4 py-20 text-center sm:px-6">
+            <ThankYouScreen locale={locale} onLocaleChange={setLocale} />
+          </div>
+        ) : null}
+      </main>
     </div>
   );
+
+
+
 }

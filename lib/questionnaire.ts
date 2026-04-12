@@ -537,6 +537,22 @@ export const copy = {
   },
   continue: { en: "Continue", fr: "Continuer" },
   submit: { en: "Submit responses", fr: "Envoyer les réponses" },
+  q1: {
+    en: "1. Which telecom company do you work for?",
+    fr: "1. Pour quelle entreprise de télécommunications travaillez-vous ?",
+  },
+  q2: {
+    en: "2. Which department do you work in?",
+    fr: "2. Dans quel service travaillez-vous ?",
+  },
+  q3: {
+    en: "3. How many years have you worked in the telecom sector?",
+    fr: "3. Depuis combien d’années travaillez-vous dans le secteur des télécommunications ?",
+  },
+  q4: {
+    en: "4. What is your role in the company?",
+    fr: "4. Quel est votre rôle dans l’entreprise ?",
+  },
   home: { en: "Home", fr: "Accueil" },
   language: { en: "Language", fr: "Langue" },
   surveyEyebrow: {
@@ -544,13 +560,14 @@ export const copy = {
     fr: "Enquête de recherche",
   },
   surveyTitle: {
-    en: "The Impact of ESG Adoption on Sustainable Financial Performance in Your Organization",
-    fr: "L’impact de l’adoption de l’ESG sur la performance financière durable au sein de votre organisation",
+    en: "ESG Telecom Survey",
+    fr: "Enquête ESG Telecom",
   },
   surveySubtitle: {
-    en: "Please answer all questions. Estimated time: 10–15 minutes.",
-    fr: "Veuillez répondre à toutes les questions. Durée estimée : 10–15 minutes.",
+    en: "Evaluating Environmental, Social, and Governance practices in the Cameroon telecommunications sector.",
+    fr: "Évaluation des pratiques environnementales, sociales et de gouvernance dans le secteur des télécommunications au Cameroun.",
   },
+
   matrixIntro: {
     en: "Scale: 1 = Not at all — 5 = Very extensively",
     fr: "Échelle : 1 = Pas du tout — 5 = Très largement",
@@ -565,6 +582,7 @@ export const copy = {
     fr: "Impossible d’enregistrer vos réponses. Vérifiez votre connexion et réessayez.",
   },
   thanksTitle: { en: "Thank you", fr: "Merci" },
+  back: { en: "Back", fr: "Retour" },
   thanksBody: {
     en: "Your responses have been recorded. You may close this page.",
     fr: "Vos réponses ont été enregistrées. Vous pouvez fermer cette page.",
@@ -597,6 +615,23 @@ export const copy = {
     en: "10. To what extent does your company implement the following governance practices?",
     fr: "10. Dans quelle mesure votre entreprise met-elle en œuvre les pratiques de gouvernance suivantes ?",
   },
+  subsectionEnv: {
+    en: "Environmental Practices",
+    fr: "Pratiques environnementales",
+  },
+  subsectionSocial: {
+    en: "Social Practices",
+    fr: "Pratiques sociales",
+  },
+  subsectionGov: {
+    en: "Governance Practices",
+    fr: "Pratiques de gouvernance",
+  },
+  stickyHeaderTitle: {
+    en: "ESG Survey",
+    fr: "Enquête ESG",
+  },
+
   q11: {
     en: "11. To what extent do you agree with: “ESG adoption can improve my company’s long term profitability”?",
     fr: "11. Dans quelle mesure êtes-vous d’accord avec : « L’adoption de l’ESG peut améliorer la rentabilité à long terme de mon entreprise » ?",
@@ -628,33 +663,5 @@ export const copy = {
   q17: {
     en: "17. Do you have any recommendations for improving ESG adoption in your company?",
     fr: "17. Avez-vous des recommandations pour améliorer l’adoption de l’ESG dans votre entreprise ?",
-  },
-  q1: {
-    en: "1. Which telecom company do you work for?",
-    fr: "1. Pour quelle entreprise de télécommunications travaillez-vous ?",
-  },
-  q2: {
-    en: "2. Which department do you work in?",
-    fr: "2. Dans quel service travaillez-vous ?",
-  },
-  q3: {
-    en: "3. How many years have you worked in the telecom sector?",
-    fr: "3. Depuis combien d’années travaillez-vous dans le secteur des télécommunications ?",
-  },
-  q4: {
-    en: "4. What is your role in the company?",
-    fr: "4. Quel est votre rôle dans l’entreprise ?",
-  },
-  subsectionEnv: {
-    en: "Environmental practices",
-    fr: "Pratiques environnementales",
-  },
-  subsectionSocial: {
-    en: "Social practices",
-    fr: "Pratiques sociales",
-  },
-  subsectionGov: {
-    en: "Governance practices",
-    fr: "Pratiques de gouvernance",
   },
 } as const;
