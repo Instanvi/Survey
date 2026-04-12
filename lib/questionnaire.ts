@@ -563,6 +563,14 @@ export const copy = {
     en: "ESG Telecom Survey",
     fr: "Enquête ESG Telecom",
   },
+  surveyBrandTitle: {
+    en: "Instanvi",
+    fr: "Instanvi",
+  },
+  surveyBrandTagline: {
+    en: "Telecom | Cameroon",
+    fr: "Telecom | Cameroun",
+  },
   surveySubtitle: {
     en: "Evaluating Environmental, Social, and Governance practices in the Cameroon telecommunications sector.",
     fr: "Évaluation des pratiques environnementales, sociales et de gouvernance dans le secteur des télécommunications au Cameroun.",
