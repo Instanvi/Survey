@@ -18,8 +18,8 @@ export const consentInfoPages: (ConsentInfoPage & { icon?: string })[] = [
       fr: "Objet de l’étude",
     },
     body: {
-      en: "This study aims to investigate on how Cameroonian Mobile Telecoms can leverage structured ESG adoption to secure long-term financial performance in a growing market.",
-      fr: "Cette étude vise à examiner comment les télécommunications mobiles camerounaises peuvent tirer parti de l’adoption structurée de l’ESG pour garantir une performance financière à long terme sur un marché en pleine croissance.",
+      en: "This study aims to investigate on how African Mobile Telecoms can leverage structured ESG adoption to secure long-term financial performance in a growing market.",
+      fr: "Cette étude vise à examiner comment les télécommunications mobiles africaines peuvent tirer parti de l’adoption structurée de l’ESG pour garantir une performance financière à long terme sur un marché en pleine croissance.",
     },
   },
   {
@@ -48,8 +48,8 @@ export const consentInfoPages: (ConsentInfoPage & { icon?: string })[] = [
       fr: "Bénéfices",
     },
     body: {
-      en: "You may benefit from this study if your organization implements actions that bring positive social and financial benefits for employees although this cannot be guaranteed. You should also be proud to contribute to the creation of new knowledge on ESG adoption in Cameroon.",
-      fr: "Vous pourriez bénéficier de cette étude si votre organisation met en œuvre des actions qui apportent des retombées sociales et financières positives pour les employé·es, bien que cela ne puisse être garanti. Vous devriez également être fier·ère de contribuer à la création de nouvelles connaissances sur l’adoption de l’ESG au Cameroun.",
+      en: "You may benefit from this study if your organization implements actions that bring positive social and financial benefits for employees although this cannot be guaranteed. You should also be proud to contribute to the creation of new knowledge on ESG adoption in Africa.",
+      fr: "Vous pourriez bénéficier de cette étude si votre organisation met en œuvre des actions qui apportent des retombées sociales et financières positives pour les employé·es, bien que cela ne puisse être garanti. Vous devriez également être fier·ère de contribuer à la création de nouvelles connaissances sur l’adoption de l’ESG en Afrique.",
     },
   },
   {

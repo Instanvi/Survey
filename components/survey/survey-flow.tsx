@@ -89,7 +89,7 @@ export function SurveyFlow() {
               {t(copy.stickyHeaderTitle)}
             </h1>
             <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#0056b3]">
-              TELECOM | CAMEROON
+              {t(copy.surveyBrandTagline)}
             </p>
           </div>
           <LocaleSwitcher value={locale} onChange={setLocale} />

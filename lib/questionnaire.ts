@@ -34,19 +34,42 @@ export const likertScaleLabels: Record<Locale, string[]> = {
   ],
 };
 
-/** Q1 — Cameroon telecom operators (demographic, unscored). */
+/** Q1 — MTN subsidiary (demographic, unscored). Wording from Final Questionnaire_2026.xlsx. */
 export const q1Options: Option[] = [
-  { id: "mtn_cameroon", labels: { en: "MTN Cameroon", fr: "MTN Cameroun" } },
-  { id: "orange_cameroon", labels: { en: "Orange Cameroon", fr: "Orange Cameroun" } },
-  { id: "camtel", labels: { en: "CAMTEL", fr: "CAMTEL" } },
-  { id: "nexttel", labels: { en: "NEXTTEL", fr: "NEXTTEL" } },
+  { id: "mtn_benin", labels: { en: "MTN Benin", fr: "MTN Benin" } },
+  { id: "mtn_botswana", labels: { en: "MTN Botswana", fr: "MTN Botswana" } },
+  { id: "mtn_cameroon", labels: { en: "MTN Cameroon", fr: "MTN Afrique" } },
+  { id: "mtn_congo", labels: { en: "MTN Congo", fr: "MTN Congo" } },
+  {
+    id: "mtn_cote_divoire",
+    labels: { en: "MTN Cote D'Ivoire", fr: "MTN Cote D'Ivoire" },
+  },
+  { id: "mtn_eswantini", labels: { en: "MTN Eswantini", fr: "MTN Eswantini" } },
+  { id: "mtn_ghana", labels: { en: "MTN Ghana", fr: "MTN Ghana" } },
+  { id: "mtn_liberia", labels: { en: "MTN Liberia", fr: "MTN Liberia" } },
+  { id: "mtn_nigeria", labels: { en: "MTN Nigeria", fr: "MTN Nigeria" } },
+  { id: "mtn_rwanda", labels: { en: "MTN Rwanda", fr: "MTN Rwanda" } },
+  {
+    id: "mtn_south_africa",
+    labels: { en: "MTN South Africa", fr: "MTN Afrique du Sud" },
+  },
+  {
+    id: "mtn_south_sudan",
+    labels: { en: "MTN South Sudan", fr: "MTN Soudan du Sud" },
+  },
+  { id: "mtn_sudan", labels: { en: "MTN Sudan", fr: "MTN Soudan" } },
+  { id: "mtn_uganda", labels: { en: "MTN Uganda", fr: "MTN ouganda" } },
+  { id: "mtn_zambia", labels: { en: "MTN Zambia", fr: "MTN Zambie" } },
 ];
 
 export const q2Options: Option[] = [
   { id: "finance", labels: { en: "Finance", fr: "Finance" } },
   {
     id: "esg",
-    labels: { en: "ESG / Sustainability", fr: "ESG / Durabilité" },
+    labels: {
+      en: "ESG / Sustainability",
+      fr: "ESG / Développement durable",
+    },
   },
   {
     id: "hr",
@@ -54,7 +77,7 @@ export const q2Options: Option[] = [
   },
   { id: "legal", labels: { en: "Legal", fr: "Juridique" } },
   { id: "compliance", labels: { en: "Compliance", fr: "Conformité" } },
-  { id: "it", labels: { en: "IT", fr: "IT" } },
+  { id: "it", labels: { en: "IT", fr: "Informatique" } },
 ];
 
 export const q3Options: Option[] = [
@@ -72,18 +95,18 @@ export const q4Options: Option[] = [
     id: "senior",
     labels: {
       en: "Senior Manager / Executive",
-      fr: "Cadre supérieur / Direction",
+      fr: "Executive / Dirigeant",
     },
   },
   {
     id: "middle",
-    labels: { en: "Middle Manager", fr: "Manager intermédiaire" },
+    labels: { en: "Middle Manager", fr: "Cadre" },
   },
   {
     id: "non_mgmt",
     labels: {
       en: "Non Management Staff",
-      fr: "Personnel non managérial",
+      fr: "Agent / Non-Cadre",
     },
   },
 ];
@@ -95,7 +118,7 @@ export const q5Options: Option[] = [
   },
   {
     id: "somewhat_familiar",
-    labels: { en: "Somewhat familiar", fr: "Plutôt familier" },
+    labels: { en: "Somewhat familiar", fr: "Peu familier" },
   },
   {
     id: "not_familiar",
@@ -108,7 +131,7 @@ export const q6Options: Option[] = [
     id: "structured_esg",
     labels: {
       en: "A structured ESG strategy with defined KPIs",
-      fr: "Une stratégie ESG structurée avec des KPI définis",
+      fr: "Une stratégie ESG structurée avec des indicateurs (KPI) définis",
     },
   },
   {
@@ -122,7 +145,7 @@ export const q6Options: Option[] = [
     id: "mainly_csr",
     labels: {
       en: "Mainly CSR activities (philanthropy, charity)",
-      fr: "Principalement des activités RSE (philanthropie, charité)",
+      fr: "Principalement des activités RSE (philanthropie, dons)",
     },
   },
   {
@@ -169,7 +192,7 @@ export const q8Rows: MatrixRow[] = [
     maxPoints: 10,
     labels: {
       en: "Energy efficiency initiatives (solar sites, low energy equipment)",
-      fr: "Initiatives d’efficacité énergétique (sites solaires, équipements basse consommation)",
+      fr: "Initiatives d’efficacité énergétique (sites solaires, équipements basse consommation d'énergie)",
     },
   },
   {
@@ -193,7 +216,7 @@ export const q8Rows: MatrixRow[] = [
     maxPoints: 2,
     labels: {
       en: "Environmental regulatory compliance",
-      fr: "Conformité réglementaire environnementale",
+      fr: "Conformité à la réglementation environnementale",
     },
   },
   {
@@ -201,7 +224,7 @@ export const q8Rows: MatrixRow[] = [
     maxPoints: 3,
     labels: {
       en: "Tracking environmental performance metrics (e.g., CO₂ emissions)",
-      fr: "Suivi des indicateurs de performance environnementale (ex. émissions de CO₂)",
+      fr: "Suivi des indicateurs de performance environnementale (p. ex. émissions de Carbone)",
     },
   },
 ];
@@ -263,7 +286,7 @@ export const q10Rows: MatrixRow[] = [
     maxPoints: 4,
     labels: {
       en: "Anti corruption and compliance frameworks",
-      fr: "Lutte contre la corruption et cadres de conformité",
+      fr: "Dispositifs anticorruption et de conformité",
     },
   },
   {
@@ -271,7 +294,7 @@ export const q10Rows: MatrixRow[] = [
     maxPoints: 3,
     labels: {
       en: "Board independence & oversight",
-      fr: "Indépendance et supervision du conseil",
+      fr: "Indépendance du conseil et supervision",
     },
   },
   {
@@ -279,7 +302,7 @@ export const q10Rows: MatrixRow[] = [
     maxPoints: 7,
     labels: {
       en: "Risk management processes & business growth strategies",
-      fr: "Gestion des risques et stratégies de croissance",
+      fr: "Processus de gestion des risques et stratégies de croissance",
     },
   },
   {
@@ -287,7 +310,7 @@ export const q10Rows: MatrixRow[] = [
     maxPoints: 3,
     labels: {
       en: "Internal audit and reporting mechanisms",
-      fr: "Audit interne et mécanismes de reporting",
+      fr: "Mécanismes d’audit interne et de reporting",
     },
   },
   {
@@ -321,7 +344,7 @@ export const q12Options: Option[] = [
     id: "q12_revenue",
     labels: {
       en: "Increased revenue or customer loyalty",
-      fr: "Augmentation du chiffre d’affaires ou fidélisation",
+      fr: "Hausse des revenus ou de la fidélité client",
     },
   },
   {
@@ -335,7 +358,7 @@ export const q12Options: Option[] = [
     id: "q12_brand",
     labels: {
       en: "Enhanced brand reputation",
-      fr: "Renforcement de la réputation de marque",
+      fr: "Amélioration de la réputation de la marque",
     },
   },
   {
@@ -353,7 +376,7 @@ export const q13Options: Option[] = [
     id: "possibly",
     labels: {
       en: "Possibly, but with challenges",
-      fr: "Peut-être, mais avec des difficultés",
+      fr: "Possiblement, mais avec des défis",
     },
   },
   { id: "no", labels: { en: "No", fr: "Non" } },
@@ -375,7 +398,7 @@ export const q14Options: Option[] = [
     id: "q14_governance",
     labels: {
       en: "Lack of structured ESG governance",
-      fr: "Absence de gouvernance ESG structurée",
+      fr: "Absence d’une gouvernance ESG structurée",
     },
   },
   {
@@ -396,7 +419,7 @@ export const q14Options: Option[] = [
     id: "q14_standards",
     labels: {
       en: "Lack of industry ESG standards",
-      fr: "Manque de normes ESG sectorielles",
+      fr: "Absence de normes ESG sectorielles",
     },
   },
   {
@@ -410,27 +433,27 @@ export const q14Options: Option[] = [
     id: "q14_priority",
     labels: {
       en: "Low management priority",
-      fr: "Faible priorité managériale",
+      fr: "Priorité managériale faible",
     },
   },
   {
     id: "q14_other",
-    labels: { en: "Other (please specify)", fr: "Autre (précisez)" },
+    labels: { en: "Other (please specify)", fr: "Autre (veuillez préciser)" },
   },
 ];
 
 export const q15Options: Option[] = [
   {
     id: "fully",
-    labels: { en: "Fully prepared", fr: "Entièrement prêt" },
+    labels: { en: "Fully prepared", fr: "Totalement prête" },
   },
   {
     id: "moderate",
-    labels: { en: "Moderately prepared", fr: "Modérément prêt" },
+    labels: { en: "Moderately prepared", fr: "Modérément prête" },
   },
   {
     id: "not_prepared",
-    labels: { en: "Not prepared", fr: "Pas prêt" },
+    labels: { en: "Not prepared", fr: "Pas prête" },
   },
   {
     id: "not_sure",
@@ -472,49 +495,49 @@ export const sectionTitles: Record<
   { short: Record<Locale, string>; full: Record<Locale, string> }
 > = {
   A: {
-    short: { en: "Section A", fr: "Section A" },
+    short: { en: "SECTION A", fr: "SECTION A" },
     full: {
       en: "Respondent Information",
       fr: "Informations sur le répondant",
     },
   },
   B: {
-    short: { en: "Section B", fr: "Section B" },
+    short: { en: "SECTION B", fr: "SECTION B" },
     full: {
       en: "Awareness and Understanding of ESG",
       fr: "Sensibilisation et compréhension de l’ESG",
     },
   },
   C: {
-    short: { en: "Section C", fr: "Section C" },
+    short: { en: "SECTION C", fr: "SECTION C" },
     full: {
-      en: "Current ESG Practices and Maturity",
-      fr: "Pratiques ESG actuelles et maturité",
+      en: "Current ESG Practices and Maturity Levels",
+      fr: "Pratiques ESG actuelles et niveaux de maturité",
     },
   },
   D: {
-    short: { en: "Section D", fr: "Section D" },
+    short: { en: "SECTION D", fr: "SECTION D" },
     full: {
-      en: "Perceived Value and Financial Impact",
-      fr: "Valeur perçue et impact financier",
+      en: "Perceived Value and Financial Impact of ESG",
+      fr: "Valeur perçue et impact financier de l’ESG",
     },
   },
   E: {
-    short: { en: "Section E", fr: "Section E" },
+    short: { en: "SECTION E", fr: "SECTION E" },
     full: {
       en: "Barriers to ESG Adoption",
       fr: "Obstacles à l’adoption de l’ESG",
     },
   },
   F: {
-    short: { en: "Section F", fr: "Section F" },
+    short: { en: "SECTION F", fr: "SECTION F" },
     full: {
       en: "Internal ESG Readiness and Capability",
-      fr: "Préparation et capacités ESG internes",
+      fr: "Préparation et capacités internes en matière d’ESG",
     },
   },
   G: {
-    short: { en: "Section G", fr: "Section G" },
+    short: { en: "SECTION G", fr: "SECTION G" },
     full: {
       en: "Open Ended Questions",
       fr: "Questions ouvertes",
@@ -538,20 +561,20 @@ export const copy = {
   continue: { en: "Continue", fr: "Continuer" },
   submit: { en: "Submit responses", fr: "Envoyer les réponses" },
   q1: {
-    en: "1. Which telecom company do you work for?",
-    fr: "1. Pour quelle entreprise de télécommunications travaillez-vous ?",
+    en: "1. Which MTN Subsidiary do you work for or did you last work for?",
+    fr: "1. Veuillez indiquer la filiale MTN pour laquelle vous travaillez ou avez travaillé en dernier lieu.",
   },
   q2: {
     en: "2. Which department do you work in?",
-    fr: "2. Dans quel service travaillez-vous ?",
+    fr: "2. Dans quel département travaillez-vous ?",
   },
   q3: {
     en: "3. How many years have you worked in the telecom sector?",
-    fr: "3. Depuis combien d’années travaillez-vous dans le secteur des télécommunications ?",
+    fr: "3. Depuis combien d’années travaillez-vous dans le secteur des télécoms ?",
   },
   q4: {
     en: "4. What is your role in the company?",
-    fr: "4. Quel est votre rôle dans l’entreprise ?",
+    fr: "4. Quel est votre niveau de responsabilité dans l’entreprise ?",
   },
   home: { en: "Home", fr: "Accueil" },
   language: { en: "Language", fr: "Langue" },
@@ -568,17 +591,17 @@ export const copy = {
     fr: "Instanvi",
   },
   surveyBrandTagline: {
-    en: "Telecom | Cameroon",
-    fr: "Telecom | Cameroun",
+    en: "Telecom | Africa",
+    fr: "Telecom | Afrique",
   },
   surveySubtitle: {
-    en: "Evaluating Environmental, Social, and Governance practices in the Cameroon telecommunications sector.",
-    fr: "Évaluation des pratiques environnementales, sociales et de gouvernance dans le secteur des télécommunications au Cameroun.",
+    en: "Evaluating Environmental, Social, and Governance practices in the African telecommunications sector.",
+    fr: "Évaluation des pratiques environnementales, sociales et de gouvernance dans le secteur des télécommunications en Afrique.",
   },
 
   matrixIntro: {
-    en: "Scale: 1 = Not at all — 5 = Very extensively",
-    fr: "Échelle : 1 = Pas du tout — 5 = Très largement",
+    en: "Scale: 1 = Not at all | 5 = Very extensively",
+    fr: "Échelle : 1 = Pas du tout | 5 = Très largement",
   },
   resultsTitle: { en: "Your results", fr: "Vos résultats" },
   totalScore: { en: "Total score", fr: "Score total" },
@@ -601,7 +624,7 @@ export const copy = {
   otherSpecify: { en: "Please specify", fr: "Précisez" },
   q5: {
     en: "5. How familiar are you with the concept of ESG (Environmental, Social, Governance)?",
-    fr: "5. Dans quelle mesure connaissez-vous le concept ESG (Environnement, Social, Gouvernance) ?",
+    fr: "5. À quel point connaissez-vous le concept RSE/ESG (Environnement, Social, Gouvernance) ?",
   },
   q6: {
     en: "6. Which option best describes your company’s current sustainability practices?",
@@ -609,19 +632,19 @@ export const copy = {
   },
   q7: {
     en: "7. Does your company publish any ESG, sustainability, or CSR reports?",
-    fr: "7. Votre entreprise publie-t-elle des rapports ESG, durabilité ou RSE ?",
+    fr: "7. Votre entreprise publie-t-elle des rapports ESG, de durabilité ou RSE ?",
   },
   q8: {
     en: "8. To what extent does your company implement the following environmental practices?",
-    fr: "8. Dans quelle mesure votre entreprise met-elle en œuvre les pratiques environnementales suivantes ?",
+    fr: "8. A quel pouint votre entreprise met-elle en œuvre les pratiques environnementales suivantes ?",
   },
   q9: {
     en: "9. To what extent does your company implement the following social practices?",
-    fr: "9. Dans quelle mesure votre entreprise met-elle en œuvre les pratiques sociales suivantes ?",
+    fr: "9. A quel point votre entreprise met-elle en œuvre les pratiques sociales suivantes ?",
   },
   q10: {
     en: "10. To what extent does your company implement the following governance practices?",
-    fr: "10. Dans quelle mesure votre entreprise met-elle en œuvre les pratiques de gouvernance suivantes ?",
+    fr: "10. A quel point votre entreprise met-elle en œuvre les pratiques de gouvernance suivantes ?",
   },
   subsectionEnv: {
     en: "Environmental Practices",
@@ -642,34 +665,38 @@ export const copy = {
 
   q11: {
     en: "11. To what extent do you agree with: “ESG adoption can improve my company’s long term profitability”?",
-    fr: "11. Dans quelle mesure êtes-vous d’accord avec : « L’adoption de l’ESG peut améliorer la rentabilité à long terme de mon entreprise » ?",
+    fr: "11. A quel point êtes-vous d’accord avec l’énoncé : « L’adoption de l’ESG peut améliorer la rentabilité à long terme de mon entreprise » ?",
   },
   q12: {
-    en: "12. Which financial benefits do you believe ESG adoption can generate? (Select all that apply)",
-    fr: "12. Quels bénéfices financiers l’adoption de l’ESG peut-elle générer ? (Cochez tout ce qui s’applique)",
+    en: "12. Which financial benefits do you believe ESG adoption can generate?",
+    fr: "12. Quels avantages financiers pensez-vous que l’ESG peut générer ?",
   },
   q12Note: {
-    en: "Only shown if you agreed with question 11.",
-    fr: "Affiché seulement si vous étiez d’accord avec la question 11.",
+    en: "Only available to those who either strongly agree or agree on Q11.",
+    fr: "Disponible uniquement pour les personnes ayant répondu « Tout à fait d’accord » ou « D’accord » à la question Q11.",
+  },
+  q13Note: {
+    en: "Only available to those who either strongly agree or agree on Q11.",
+    fr: "Disponible uniquement pour les personnes ayant répondu « Tout à fait d’accord » ou « D’accord » à la question Q11.",
   },
   q13: {
     en: "13. Do you believe ESG performance can be measured and linked to financial performance in your company?",
-    fr: "13. Pensez-vous que la performance ESG puisse être mesurée et liée à la performance financière dans votre entreprise ?",
+    fr: "13. Pensez-vous que la performance ESG/RSE peut être mesurée et reliée à la performance financière dans votre entreprise ?",
   },
   q14: {
-    en: "14. What challenges prevent your company from adopting ESG more strategically? (Select all that apply)",
-    fr: "14. Quels défis empêchent votre entreprise d’adopter l’ESG plus stratégiquement ? (Cochez tout ce qui s’applique)",
+    en: "14. What challenges prevent your company from adopting ESG more strategically?",
+    fr: "14. Quels défis empêchent votre entreprise d’adopter l’ESG de manière plus stratégique ?",
   },
   q15: {
     en: "15. How prepared is your company to adopt a structured ESG framework in the next 3 years?",
-    fr: "15. Dans quelle mesure votre entreprise est-elle prête à adopter un cadre ESG structuré dans les 3 prochaines années ?",
+    fr: "15. Dans quelle mesure votre entreprise est-elle prête à adopter un cadre ESG structuré au cours des 3 prochaines années ?",
   },
   q16: {
     en: "16. Does your company have any staff dedicated to ESG or sustainability?",
-    fr: "16. Votre entreprise dispose-t-elle de personnel dédié à l’ESG ou à la durabilité ?",
+    fr: "16. Votre entreprise dispose-t-elle d’un personnel dédié à l’ESG ou au développement durable ?",
   },
   q17: {
-    en: "17. Do you have any recommendations for improving ESG adoption in your company?",
+    en: "17. Do you have any recommendations for improving ESG adoption in your Company?",
     fr: "17. Avez-vous des recommandations pour améliorer l’adoption de l’ESG dans votre entreprise ?",
   },
 } as const;

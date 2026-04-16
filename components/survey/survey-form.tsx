@@ -273,6 +273,9 @@ function SectionDFields({
           </QuestionItem>
 
           <QuestionItem id="q13" title={t("q13")}>
+            <p className="mb-2 text-sm leading-relaxed text-foreground">
+              {copy.q13Note[locale]}
+            </p>
             <SingleChoice name="q13" options={q13Options} locale={locale} />
           </QuestionItem>
         </>
